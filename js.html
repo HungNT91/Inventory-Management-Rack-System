@@ -1,0 +1,68 @@
+<script>
+    const { createApp, ref, computed } = Vue;
+
+    createApp({
+        setup() {
+            const query = ref('');
+            const items = ref([]);
+            const loading = ref(false);
+            const error = ref('');
+            const hasSearched = ref(false);
+
+            const itemsFound = computed(() => items.value.length > 0);
+
+            const search = () => {
+                if (!query.value.trim()) return;
+
+                loading.value = true;
+                error.value = '';
+                items.value = [];
+                hasSearched.value = true;
+
+                // Call GAS backend
+                google.script.run
+                    .withSuccessHandler(onSuccess)
+                    .withFailureHandler(onFailure)
+                    .searchItem(query.value);
+            };
+
+            const onSuccess = (response) => {
+                loading.value = false;
+                if (response.success) {
+                    items.value = response.results;
+                    if (items.value.length === 0) {
+                        error.value = 'No items found matching your query.';
+                    }
+                } else {
+                    error.value = 'Error: ' + response.message;
+                }
+            };
+
+            const onFailure = (err) => {
+                loading.value = false;
+                error.value = 'System Error: ' + err.message;
+            };
+
+            const clear = () => {
+                query.value = '';
+                items.value = [];
+                error.value = '';
+                hasSearched.value = false;
+                document.getElementById('searchInput').focus();
+            };
+
+            // Debounce logic could be added here if needed, but for GAS (slower) explicit search is better.
+
+            return {
+                query,
+                items,
+                loading,
+                error,
+                hasSearched,
+                itemsFound,
+                search,
+                clear
+            };
+        }
+    }).mount('#app');
+</script>

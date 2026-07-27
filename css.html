@@ -1,0 +1,210 @@
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+
+  :root {
+    --glass-bg: rgba(255, 255, 255, 0.65);
+    --glass-border: rgba(255, 255, 255, 0.4);
+    --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.05);
+    --primary-color: #4a5568;
+    /* Neutral Slate */
+    --accent-color: #2d3748;
+    --bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    --text-main: #1a202c;
+    --text-secondary: #718096;
+  }
+
+  * {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+    background: var(--bg-gradient);
+    min-height: 100vh;
+    color: var(--text-main);
+    font-size: 16px;
+    overflow-x: hidden;
+  }
+
+  #app {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    padding-bottom: 80px;
+    /* Space for bottom nav or scroll */
+  }
+
+  /* Glass Card */
+  .glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 20px;
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
+    padding: 20px;
+    margin-bottom: 20px;
+    transition: transform 0.2s ease;
+  }
+
+  .glass-card:active {
+    transform: scale(0.98);
+  }
+
+  /* Header */
+  .header {
+    margin-bottom: 30px;
+    text-align: center;
+  }
+
+  .header h1 {
+    font-weight: 600;
+    font-size: 24px;
+    color: var(--text-main);
+    margin: 0;
+    letter-spacing: -0.5px;
+  }
+
+  /* Search Input */
+  .search-container {
+    position: sticky;
+    top: 20px;
+    z-index: 100;
+    margin-bottom: 25px;
+  }
+
+  .search-box {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(16px);
+    border-radius: 16px;
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    border: 1px solid white;
+  }
+
+  .search-box input {
+    border: none;
+    background: transparent;
+    width: 100%;
+    font-size: 16px;
+    outline: none;
+    color: var(--text-main);
+    font-family: 'Inter', sans-serif;
+  }
+
+  .search-box svg {
+    color: var(--text-secondary);
+    margin-left: 10px;
+    cursor: pointer;
+  }
+
+  /* Data List */
+  .item-card {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+
+  .item-title {
+    font-weight: 600;
+    font-size: 18px;
+    color: var(--text-main);
+  }
+
+  .item-badge {
+    background: rgba(0, 0, 0, 0.05);
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-secondary);
+  }
+
+  .item-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    padding: 4px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+  }
+
+  .item-row:last-child {
+    border-bottom: none;
+  }
+
+  .label {
+    color: var(--text-secondary);
+  }
+
+  .value {
+    color: var(--text-main);
+    font-weight: 500;
+    text-align: right;
+  }
+
+  /* Loading State */
+  .loading {
+    text-align: center;
+    padding: 40px;
+    color: var(--text-secondary);
+  }
+
+  .spinner {
+    width: 40px;
+    height: 40px;
+    margin: 0 auto 15px;
+    border: 3px solid rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    border-top-color: var(--primary-color);
+    animation: spin 1s ease-in-out infinite;
+  }
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  /* Floating Action Button (Optional for Scan) */
+  .fab {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    border-radius: 30px;
+    background: var(--text-main);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    z-index: 100;
+    cursor: pointer;
+    border: none;
+    transition: transform 0.2s;
+  }
+
+  .fab:active {
+    transform: scale(0.9);
+  }
+
+  /* Empty State */
+  .empty-state {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--text-secondary);
+  }
+</style>
